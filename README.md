@@ -63,18 +63,18 @@ This module encapsulates all the “messy” audio handling so the rest of the c
 
 ### 2. `src/utils/transcription_utils.py` – Whisper Transcription
 
-The `transcription_utils` module defines `transcribe_audio(whisper_model, audio_waveform, language=None)`, which handles **speech-to-text** using a Whisper model :contentReference[oaicite:2]{index=2}.
+The `transcription_utils` module defines `transcribe_audio(whisper_model, audio_waveform, language=None)`, which handles **speech-to-text** using a Whisper model .
 
 Key behaviors:
 
 - Ensures the input is a NumPy `float32` array  
-- Detects almost-silent audio and returns an empty transcription with a fallback language (`"unknown"` or the provided `language`) instead of crashing Whisper :contentReference[oaicite:3]{index=3}  
+- Detects almost-silent audio and returns an empty transcription with a fallback language (`"unknown"` or the provided `language`) instead of crashing Whisper  
 - Uses **GPU if available** (`device = "cuda" if torch.cuda.is_available() else "cpu"`) and moves the Whisper model to that device  
 - Supports an optional `language` parameter to **force** a language; otherwise Whisper’s auto-detection is used  
 - Cleans up the result:
   - Strips whitespace from `text`  
   - Normalizes the `language` code to lowercase and trims it  
-- Performs **garbage collection** and empties CUDA cache to avoid memory issues on 4–8 GB systems :contentReference[oaicite:4]{index=4}  
+- Performs **garbage collection** and empties CUDA cache to avoid memory issues on 4–8 GB systems 
 
 The function returns a dictionary with:
 
